@@ -82,7 +82,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'blog_backend.urls'
 
-# SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
 TEMPLATES = [
     {
@@ -175,6 +175,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost:5173",
+    "https://blog-application-nu-eight.vercel.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
