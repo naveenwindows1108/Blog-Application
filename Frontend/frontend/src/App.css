@@ -1,0 +1,12 @@
+
+.hero-main-card.no-image {
+  background-color: #f8f9fa;
+}
+
+.hero-main-card.no-image .hero-content-box .text-white {
+  color: #212529 !important;
+}
+
+.article-card.no-image {
+  border: 1px solid #e9ecef;
+}
