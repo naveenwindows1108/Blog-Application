@@ -116,13 +116,15 @@ WSGI_APPLICATION = 'blog_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# settings.py
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER': 'postgres',
+        'USER': 'postgres.razbywdbmsqizxdtrmkq', 
         'PASSWORD': 'IoWIUQx1t6Ufpt0S',
-        'HOST': 'db.razbywdbmsqizxdtrmkq.supabase.co',
+        'HOST': 'aws-1-ap-northeast-1.pooler.supabase.com', 
         'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'require',
