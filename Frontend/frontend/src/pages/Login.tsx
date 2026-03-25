@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import api from '../api/axios';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || '/';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +30,7 @@ const Login: React.FC = () => {
         localStorage.setItem('avatar', res.data.avatar);
       }
 
-      navigate('/');
+      navigate(from, { replace: true });
     } catch (err) {
       console.error("Google login failed:", err);
       setError("Failed to sign in with Google. Please try again.");
@@ -49,7 +51,7 @@ const Login: React.FC = () => {
       localStorage.setItem('refresh_token', res.data.refresh);
       localStorage.setItem('username', email.split('@')[0]); 
 
-      navigate('/');
+      navigate(from, { replace: true });
     } catch (err: any) {
       setError('Invalid email or password.');
     } finally {
@@ -107,17 +109,17 @@ const Login: React.FC = () => {
                   <label className="form-label fw-bold small text-muted">Password</label>
                   <Link to="/forgot-password" className="small text-decoration-none" style={{ color: 'var(--accent-color)' }}>Forgot?</Link>
                 </div>
-                <div className="input-group">
+                <div className="input-group password-wrapper">
                   <input 
                     type={showPassword ? 'text' : 'password'} 
-                    className="form-control form-control-custom py-2" 
+                    className="form-control form-control-custom py-2 border-end-0" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
+                    placeholder="Enter password"
                     required
                   />
                   <button 
-                    className="btn btn-outline-secondary" 
+                    className="btn btn-outline-secondary bg-white border-start-0" 
                     type="button" 
                     onClick={() => setShowPassword(!showPassword)}
                   >

@@ -13,6 +13,7 @@ interface Post {
 }
 
 const Profile: React.FC = () => {
+  
   const username = localStorage.getItem("username") || "User";
 
   const [bio, setBio] = useState("");
@@ -31,7 +32,7 @@ const Profile: React.FC = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    document.title = `${username} | Profile`;
+    document.title = `Scriptly | ${username}`;
 
     const fetchData = async () => {
       try {
@@ -157,18 +158,28 @@ const Profile: React.FC = () => {
         <div className="row justify-content-center">
           <div className="col-12 col-lg-8">
             <div className="d-flex align-items-center mb-5 border-bottom pb-4">
-              <div className="placeholder rounded-circle me-4 bg-secondary" style={{ width: "80px", height: "80px" }}></div>
+              <div
+                className="placeholder rounded-circle me-4 bg-secondary"
+                style={{ width: "80px", height: "80px" }}
+              ></div>
               <div className="w-100">
-                <h2 className="placeholder col-4 mb-2 bg-dark rounded"></h2><br/>
+                <h2 className="placeholder col-4 mb-2 bg-dark rounded"></h2>
+                <br />
                 <p className="placeholder col-6 mb-0 bg-secondary rounded"></p>
               </div>
             </div>
             <div className="row g-4">
               <div className="col-12 col-md-5">
-                <div className="placeholder w-100 rounded bg-secondary" style={{ height: "300px" }}></div>
+                <div
+                  className="placeholder w-100 rounded bg-secondary"
+                  style={{ height: "300px" }}
+                ></div>
               </div>
               <div className="col-12 col-md-7">
-                <div className="placeholder w-100 rounded bg-secondary" style={{ height: "300px" }}></div>
+                <div
+                  className="placeholder w-100 rounded bg-secondary"
+                  style={{ height: "300px" }}
+                ></div>
               </div>
             </div>
           </div>

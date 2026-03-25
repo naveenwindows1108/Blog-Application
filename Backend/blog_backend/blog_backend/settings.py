@@ -42,12 +42,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-0rs2a))+^=9k$ha9lr9cwh%-2==92-sx1oy%^6ba@)$mgn0y40')
+SECRET_KEY = os.getenv(
+    'SECRET_KEY', 'django-insecure-0rs2a))+^=9k$ha9lr9cwh%-2==92-sx1oy%^6ba@)$mgn0y40')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 'yes')
 
-ALLOWED_HOSTS =os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
 
 
 # Application definition
@@ -122,9 +123,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER': 'postgres.razbywdbmsqizxdtrmkq', 
+        'USER': 'postgres.razbywdbmsqizxdtrmkq',
         'PASSWORD': 'IoWIUQx1t6Ufpt0S',
-        'HOST': 'aws-1-ap-northeast-1.pooler.supabase.com', 
+        'HOST': 'aws-1-ap-northeast-1.pooler.supabase.com',
         'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'require',
@@ -177,7 +178,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost:5173",
-    "https://blog-application-nu-eight.vercel.app",
+    "https://scriptly-blog.vercel.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -186,8 +187,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Tell Django to use our custom backend that allows Email OR Username
 AUTHENTICATION_BACKENDS = [
-    'blog.backends.EmailOrUsernameModelBackend', # Point this to where you saved backends.py
-    'django.contrib.auth.backends.ModelBackend', # Keep the default as a fallback
+    # Point this to where you saved backends.py
+    'blog.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',  # Keep the default as a fallback
 ]
-
-
