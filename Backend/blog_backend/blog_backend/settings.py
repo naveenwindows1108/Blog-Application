@@ -34,24 +34,20 @@ STORAGES = {
     },
 }
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv(
     'SECRET_KEY', 'django-insecure-0rs2a))+^=9k$ha9lr9cwh%-2==92-sx1oy%^6ba@)$mgn0y40')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 'yes')
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
 
 
-# Application definition
 
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
@@ -185,9 +181,7 @@ CORS_ALLOW_CREDENTIALS = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Tell Django to use our custom backend that allows Email OR Username
 AUTHENTICATION_BACKENDS = [
-    # Point this to where you saved backends.py
     'blog.backends.EmailOrUsernameModelBackend',
-    'django.contrib.auth.backends.ModelBackend',  # Keep the default as a fallback
+    'django.contrib.auth.backends.ModelBackend', 
 ]

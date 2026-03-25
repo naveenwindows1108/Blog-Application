@@ -1,4 +1,3 @@
-// src/pages/SinglePost.tsx
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -34,7 +33,7 @@ const SinglePost: React.FC = () => {
   const location = useLocation();
   const queryClient = useQueryClient();
 
-  // Fetch Post Data
+ 
   const { data: post, isLoading } = useQuery<PostDetail>({
     queryKey: ["post", id],
     queryFn: async () => {
@@ -51,7 +50,7 @@ const SinglePost: React.FC = () => {
     },
   });
 
-  // States
+
   const [comments, setComments] = useState<Comment[]>([]);
   const [likesCount, setLikesCount] = useState(0);
   const [hasLiked, setHasLiked] = useState(false);
@@ -62,7 +61,7 @@ const SinglePost: React.FC = () => {
   const currentLoggedInUser = localStorage.getItem("username");
   const isLoggedIn = !!localStorage.getItem("access_token");
 
-  // Sync Likes
+
   useEffect(() => {
     if (post && post.likes) {
       setLikesCount(post.likes.length);
@@ -75,7 +74,7 @@ const SinglePost: React.FC = () => {
     }
   }, [post, currentLoggedInUser]);
 
-  // Fetch Comments
+ 
   useEffect(() => {
     if (post) {
       document.title = `Scriptly | ${post.title}`;
@@ -98,7 +97,6 @@ const SinglePost: React.FC = () => {
     fetchComments();
   }, [id, post]);
 
-  // Fetch Related Posts
   const { data: relatedPosts } = useQuery<PostDetail[]>({
     queryKey: ["relatedPosts", id],
     queryFn: async () => {
@@ -108,7 +106,6 @@ const SinglePost: React.FC = () => {
     enabled: !!id,
   });
 
-  // --- Interaction Handlers ---
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
     alert("🔗 Article link copied to clipboard!");
@@ -238,7 +235,6 @@ const SinglePost: React.FC = () => {
   const readTime = Math.max(1, Math.ceil(wordCount / 200)) + " min read";
 
   return (
-    /* --- NEW GRID WRAPPERS TO PREVENT HORIZONTAL SCROLL --- */
     <article
       className="pb-5 mb-5 mt-5 container"
       style={{ maxWidth: "100vw", overflowX: "hidden" }}
@@ -318,7 +314,6 @@ const SinglePost: React.FC = () => {
               </div>
             )}
 
-            {/* --- FORCED WORD WRAP INLINE STYLES --- */}
             <div
               className="text-start article-body-pro mt-4"
               style={{
@@ -332,7 +327,6 @@ const SinglePost: React.FC = () => {
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
-            {/* --- PREMIUM ENGAGEMENT BAR --- */}
             <div className="d-flex align-items-center justify-content-between border-top border-bottom py-3 mt-5 mb-4">
               <div className="d-flex gap-4">
                 <button
@@ -438,7 +432,6 @@ const SinglePost: React.FC = () => {
               </div>
             </div>
 
-            {/* --- HIDDEN COMMENTS SECTION --- */}
             {showComments && (
               <div id="comments-section" className="mt-4 animate-fade-in">
                 <h5 className="fw-bold mb-4">Responses ({comments.length})</h5>
@@ -546,7 +539,6 @@ const SinglePost: React.FC = () => {
               </div>
             )}
 
-            {/* --- RELATED POSTS SECTION --- */}
             {relatedPosts && relatedPosts.length > 0 && (
               <div className="mt-5 pt-5 border-top border-light">
                 <h4
@@ -598,12 +590,9 @@ const SinglePost: React.FC = () => {
                 </div>
               </div>
             )}
-          </div>{" "}
-          {/* Close .article-container */}
-        </div>{" "}
-        {/* Close .col-12.col-lg-8 */}
-      </div>{" "}
-      {/* Close .row */}
+          </div>
+        </div>
+      </div>
     </article>
   );
 };

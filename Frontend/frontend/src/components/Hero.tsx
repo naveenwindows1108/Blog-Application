@@ -1,18 +1,15 @@
-// src/components/Hero.tsx
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import api from '../api/axios';
 import { optimizeCloudinaryUrl } from '../utils/optimizeImage';
 
-// Helper function to convert HTML to plain text
 const getTextFromHtml = (html: string) => {
   if (!html) return "";
   const doc = new DOMParser().parseFromString(html, 'text/html');
   return doc.body.textContent || "";
 };
 
-// 1. Define the shape of our Post data
 interface Post {
   id: number;
   title: string;
@@ -23,9 +20,6 @@ interface Post {
 }
 
 const Hero: React.FC = () => {
-  // 2. TAP INTO THE CACHE! 
-  // We use the exact same queryKey ('posts'). React Query is smart enough 
-  // to only make ONE network request for the whole page and share the data.
   const { data: allPosts, isLoading } = useQuery({
     queryKey: ['posts'],
     queryFn: async () => {
@@ -33,13 +27,8 @@ const Hero: React.FC = () => {
       return response.data as Post[];
     }
   });
-
-  // 3. THE STABLE SHUFFLE
-  // useMemo ensures the posts only shuffle once when the data arrives, 
-  // preventing them from flashing/swapping if the user toggles dark mode.
   const randomPosts = useMemo(() => {
     if (!allPosts || allPosts.length === 0) return [];
-    // Create a copy of the array [...allPosts] so we don't mutate the cache!
     return [...allPosts].sort(() => 0.5 - Math.random()).slice(0, 3);
   }, [allPosts]);
 
@@ -53,7 +42,6 @@ const Hero: React.FC = () => {
     );
   }
 
-  // Helper functions
   const getExcerpt = (text: string, length: number = 100) => {
     const plainText = getTextFromHtml(text);
     return plainText.length > length ? plainText.substring(0, length) + '...' : plainText;
@@ -68,7 +56,6 @@ const Hero: React.FC = () => {
   const subPost1 = randomPosts[1];
   const subPost2 = randomPosts[2];
 
-  // --- SCENARIO 1: ZERO POSTS IN DATABASE ---
   if (!mainPost) {
     return (
       <div className="row g-4 my-4">
@@ -88,15 +75,12 @@ const Hero: React.FC = () => {
   
   return (
     <div className="row g-4 my-4">
-      {/* LEFT SIDE: The Main Featured Article */}
       <div className="col-12 col-lg-8">
         <div 
           className="featured-card position-relative rounded-4 overflow-hidden shadow-sm" 
           style={{ minHeight: '480px' }}
         >
-          {/* --- 1. CONDITIONAL IMAGE AREA --- */}
           {mainPostImage ? (
-            /* If they uploaded an image, show it */
             <img
               src={mainPostImage}
               alt={mainPost.title || "Article"}
@@ -104,20 +88,17 @@ const Hero: React.FC = () => {
               style={{ top: 0, left: 0, zIndex: 1 }}
             />
           ) : (
-            /* If NO image, show a beautiful gradient instead of a black box */
             <div
               className="position-absolute w-100 h-100 d-flex align-items-center justify-content-center"
               style={{
                 top: 0, left: 0, zIndex: 1,
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', // Beautiful blue-purple gradient
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               }}
             >
-              {/* Optional: A subtle transparent icon in the background */}
               <i className="bi bi-journal-richtext text-white" style={{ fontSize: '6rem', opacity: 0.1 }}></i>
             </div>
           )}
 
-          {/* --- 2. TEXT OVERLAY (Always readable) --- */}
           <div 
             className="position-absolute bottom-0 start-0 w-100 p-4 p-md-5 d-flex flex-column justify-content-end"
             style={{
@@ -150,10 +131,8 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* RIGHT SIDE: The Two Sub-Featured Articles */}
       <div className="col-12 col-lg-4 d-flex flex-column gap-4">
         
-        {/* Sub Card 1 */}
         {subPost1 ? (
           <div className="sub-hero-card d-flex flex-column justify-content-center">
             <span className="category-label">{getCategoryName(subPost1.category)}</span>
@@ -171,7 +150,6 @@ const Hero: React.FC = () => {
           </div>
         )}
 
-        {/* Sub Card 2 */}
         {subPost2 ? (
           <div className="sub-hero-card d-flex flex-column justify-content-center">
             <span className="category-label">{getCategoryName(subPost2.category)}</span>

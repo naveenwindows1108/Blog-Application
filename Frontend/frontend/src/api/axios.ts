@@ -1,6 +1,5 @@
 import axios, { type InternalAxiosRequestConfig } from 'axios';
 
-// 1. DYNAMIC BASE URL: Uses Vercel's URL in production, or localhost in development
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api/';
 
 const api = axios.create({
@@ -37,7 +36,6 @@ api.interceptors.response.use(
 
             if (refreshToken) {
                 try {
-                    // 2. FIXED: Use the dynamic BASE_URL here instead of hardcoded 127.0.0.1
                     const response = await axios.post(`${BASE_URL}token/refresh/`, {
                         refresh: refreshToken,
                     });

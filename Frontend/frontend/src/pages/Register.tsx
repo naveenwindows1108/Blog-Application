@@ -1,4 +1,3 @@
-// src/pages/Register.tsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axios";
@@ -20,18 +19,15 @@ const Register: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // 1. Send new user data to Django (Adjust 'register/' if your URL is different)
       await api.post("register/", {
         username,
         email,
         password,
       });
 
-      // 2. On success, send them to the login page to sign in
       navigate("/login");
     } catch (err: any) {
       console.error("Registration error:", err);
-      // Catch specific errors (like "Username already exists")
       const errorMessage =
         err.response?.data?.username?.[0] ||
         err.response?.data?.email?.[0] ||
@@ -54,7 +50,6 @@ const Register: React.FC = () => {
           </p>
         </div>
 
-        {/* Display Error Message if registration fails */}
         {error && (
           <div
             className="alert alert-danger py-2"

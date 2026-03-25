@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import api from '../api/axios';
 import { optimizeCloudinaryUrl } from '../utils/optimizeImage';
 
-// Helper function to convert HTML to plain text
+//Helper function to convert HTML to plain text
 const getTextFromHtml = (html: string) => {
   if (!html) return "";
   const doc = new DOMParser().parseFromString(html, 'text/html');

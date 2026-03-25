@@ -14,11 +14,10 @@ const Settings: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState({ text: "", type: "" });
 
-  // 1. Fetch User data (email) on load
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await api.get("users/me/"); // Or whatever your auth user endpoint is
+        const response = await api.get("users/me/");
         setEmail(response.data.email || "");
         setLoading(false);
       } catch (err) {
@@ -29,7 +28,6 @@ const Settings: React.FC = () => {
     fetchUserData();
   }, []);
 
-  // 2. Handle Email Update
   const handleUpdateEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -79,7 +77,6 @@ const Settings: React.FC = () => {
             </form>
           </div>
 
-          {/* --- Password Update Section --- */}
           <div className="auth-card mx-auto mb-4" style={{ maxWidth: "100%" }}>
             <h5 className="fw-bold border-bottom pb-3 mb-4">Change Password</h5>
             <form>
