@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "../api/axios";
-import { optimizeCloudinaryUrl } from "../utils/optimizeImage";
+import { optimizeHeroImage, optimizeCardImage } from "../utils/optimizeImage";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 interface PostDetail {
@@ -221,7 +221,7 @@ const SinglePost: React.FC = () => {
     year: "numeric",
   });
 
-  const displayImage = post.image ? optimizeCloudinaryUrl(post.image) : null;
+  const displayImage = post.image ? optimizeHeroImage(post.image) : null;
   const categoryName =
     typeof post.category === "object" && post.category !== null
       ? post.category.name
@@ -306,10 +306,10 @@ const SinglePost: React.FC = () => {
                 <img
                   src={displayImage}
                   alt={post.title}
-                  className="w-100 h-100 object-fit-cover"
                   fetchPriority="high"
                   loading="eager"
                   decoding="async"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
                 />
               </div>
             )}
@@ -549,7 +549,7 @@ const SinglePost: React.FC = () => {
                 </h4>
                 <div className="row g-4">
                   {relatedPosts.map((relatedPost) => {
-                    const relatedPostImage = optimizeCloudinaryUrl(
+                    const relatedPostImage = optimizeCardImage(
                       relatedPost.image,
                     );
                     return (

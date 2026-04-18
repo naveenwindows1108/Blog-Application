@@ -18,12 +18,39 @@ export const optimizeCloudinaryUrl = (url: string | null, width: number = 1200):
   return url;
 };
 
-// Specific optimization for hero images
+/**
+ * Specific optimization for hero images (16:9 aspect ratio)
+ * Enforces 1200x675 dimensions at Cloudinary level
+ */
 export const optimizeHeroImage = (url: string | null): string | null => {
-  return optimizeCloudinaryUrl(url, 1200);
+  if (!url) return null;
+
+  if (url.includes("res.cloudinary.com")) {
+    if (url.includes("f_auto")) {
+      return url;
+    }
+    // w_1200,h_675,c_fill: enforces 16:9 aspect ratio, smart crops to subject
+    return url.replace("/upload/", "/upload/w_1200,h_675,c_fill,g_auto,f_auto,q_auto,dpr_auto/");
+  }
+
+  return url;
 };
 
-// Specific optimization for article card thumbnails
+/**
+ * Specific optimization for article card thumbnails (3:2 aspect ratio)
+ * Enforces 600x400 dimensions at Cloudinary level
+ * This is the KEY fix for uniform card heights
+ */
 export const optimizeCardImage = (url: string | null): string | null => {
-  return optimizeCloudinaryUrl(url, 600);
+  if (!url) return null;
+
+  if (url.includes("res.cloudinary.com")) {
+    if (url.includes("f_auto")) {
+      return url;
+    }
+    // w_600,h_400,c_fill: enforces 3:2 aspect ratio, smart crops to subject
+    return url.replace("/upload/", "/upload/w_600,h_400,c_fill,g_auto,f_auto,q_auto,dpr_auto/");
+  }
+
+  return url;
 };

@@ -133,12 +133,12 @@ const CreatePost: React.FC = () => {
                 {imagePreview && (
                   <div
                     className="mb-3 rounded overflow-hidden shadow-sm"
-                    style={{ height: "250px", width: "100%" }}
+                    style={{ aspectRatio: '16/9', width: "100%" }}
                   >
                     <img
                       src={imagePreview}
                       alt="Cover Preview"
-                      className="w-100 h-100 object-fit-cover"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
                     />
                   </div>
                 )}

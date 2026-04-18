@@ -86,9 +86,9 @@ const Hero: React.FC = () => {
             <img
               src={mainPostImage}
               alt={mainPost.title || "Article"}
-              className="position-absolute w-100 h-100 object-fit-cover"
+              className="position-absolute w-100 h-100"
               loading="eager"
-              style={{ top: 0, left: 0, zIndex: 1 }}
+              style={{ top: 0, left: 0, zIndex: 1, objectFit: 'cover', objectPosition: 'center' }}
             />
           ) : (
             <div
