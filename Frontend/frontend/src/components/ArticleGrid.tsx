@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query'; 
 import ArticleCard from './ArticleCard';
 import api from '../api/axios';
-import { optimizeCloudinaryUrl } from '../utils/optimizeImage';
+import { optimizeCardImage } from '../utils/optimizeImage';
 
 interface DjangoPost {
   id: number;
@@ -29,11 +29,13 @@ const ArticleGrid: React.FC = () => {
   }, [searchQuery, selectedCategory, showCreateCard]);
 
   const { data: allPosts, isLoading, isError } = useQuery({
-    queryKey: ['posts'], 
+    queryKey: ['posts'],
     queryFn: async () => {
       const response = await api.get('posts/');
       return response.data as DjangoPost[];
     },
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
   });
 
   if (isLoading) {
@@ -110,7 +112,7 @@ const ArticleGrid: React.FC = () => {
       ) : (
         visiblePosts.map((post) => {
           const formattedDate = new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-          const displayImage = optimizeCloudinaryUrl(post.image);
+          const displayImage = optimizeCardImage(post.image);
           const categoryName = typeof post.category === 'object' && post.category !== null ? post.category.name : post.category || 'Uncategorized';
           const wordCount = post.content.split(' ').length;
           const readTime = Math.max(1, Math.ceil(wordCount / 200)) + ' min';

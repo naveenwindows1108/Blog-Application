@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/axios";
-import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
+
+const ReactQuill = lazy(() => import("react-quill-new"));
 
 interface Category {
   id: number;
@@ -180,14 +181,16 @@ const CreatePost: React.FC = () => {
               <div className="mb-4">
                 <label className="form-label fw-bold">Article Content</label>
                 <div className="quill-container">
-                  <ReactQuill
-                    theme="snow"
-                    value={content}
-                    onChange={setContent}
-                    placeholder="Write your story here..."
-                    modules={quillModules}
-                    formats={quillFormats}
-                  />
+                  <Suspense fallback={<div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading editor...</span></div>}>
+                    <ReactQuill
+                      theme="snow"
+                      value={content}
+                      onChange={setContent}
+                      placeholder="Write your story here..."
+                      modules={quillModules}
+                      formats={quillFormats}
+                    />
+                  </Suspense>
                 </div>
               </div>
 

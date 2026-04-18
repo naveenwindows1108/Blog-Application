@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import api from '../api/axios';
-import { optimizeCloudinaryUrl } from '../utils/optimizeImage';
+import { optimizeCardImage } from '../utils/optimizeImage';
 
 //Helper function to convert HTML to plain text
 const getTextFromHtml = (html: string) => {
@@ -35,7 +35,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ id, title, content, category,
     });
   };
 
-  const finalImageUrl = imageUrl ? optimizeCloudinaryUrl(imageUrl) : null;
+  const finalImageUrl = imageUrl ? optimizeCardImage(imageUrl) : null;
 
   return (
     <div className={`article-card ${!finalImageUrl ? 'no-image' : ''}`} onMouseEnter={prefetchArticle}>

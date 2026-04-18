@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import api from '../api/axios';
-import { optimizeCloudinaryUrl } from '../utils/optimizeImage';
+import { optimizeHeroImage } from '../utils/optimizeImage';
 
 const getTextFromHtml = (html: string) => {
   if (!html) return "";
@@ -25,7 +25,9 @@ const Hero: React.FC = () => {
     queryFn: async () => {
       const response = await api.get('posts/');
       return response.data as Post[];
-    }
+    },
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
   });
   const randomPosts = useMemo(() => {
     if (!allPosts || allPosts.length === 0) return [];
@@ -52,7 +54,7 @@ const Hero: React.FC = () => {
   };
 
   const mainPost = randomPosts[0];
-  const mainPostImage = mainPost ? optimizeCloudinaryUrl(mainPost.image) : null;
+  const mainPostImage = mainPost ? optimizeHeroImage(mainPost.image) : null;
   const subPost1 = randomPosts[1];
   const subPost2 = randomPosts[2];
 
@@ -85,6 +87,7 @@ const Hero: React.FC = () => {
               src={mainPostImage}
               alt={mainPost.title || "Article"}
               className="position-absolute w-100 h-100 object-fit-cover"
+              loading="eager"
               style={{ top: 0, left: 0, zIndex: 1 }}
             />
           ) : (
