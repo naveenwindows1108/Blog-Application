@@ -1,7 +1,11 @@
 from django.db.models import Q
 from .serializers import LikeSerializer, BookmarkSerializer
 from .models import Like, Bookmark
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import (
+    IsAuthenticated,
+    AllowAny,
+    IsAuthenticatedOrReadOnly,
+)
 from .serializers import CommentSerializer
 from .models import Comment
 from rest_framework.response import Response
@@ -277,3 +281,21 @@ class GoogleLoginView(APIView):
 
         except ValueError:
             return Response({"error": "Invalid Google token"}, status=400)
+
+
+class HealthCheckView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response(
+            {
+                "status": "ok",
+                "message": "Server is running",
+                "timestamp": str(
+                    __import__("datetime").datetime.now(
+                        __import__("datetime").timezone.utc
+                    )
+                ),
+            },
+            status=200,
+        )

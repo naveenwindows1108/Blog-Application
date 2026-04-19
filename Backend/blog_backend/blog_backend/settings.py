@@ -13,11 +13,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
-try:
-    from dotenv import load_dotenv  # type: ignore
-except ImportError:  # noqa: F401
-    load_dotenv = lambda **_: None  # type: ignore  # noqa: ARG005, E731
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 env_path = os.path.join(BASE_DIR, ".env")
