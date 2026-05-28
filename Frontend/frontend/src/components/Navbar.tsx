@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../api/axios';
+import { optimizeCloudinaryUrl } from '../utils/optimizeImage';
 
 interface Category {
   id: number;
@@ -138,7 +139,7 @@ const Navbar: React.FC = () => {
                 <li className="nav-item dropdown">
                   <a className="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontWeight: 600 }}>
                     {avatar ? (
-                      <img src={avatar} alt="avatar" style={{ width: '32px', height: '32px', borderRadius: '50%', marginRight: '10px' }} />
+                      <img src={optimizeCloudinaryUrl(avatar, 64) || ""} alt="avatar" style={{ width: '32px', height: '32px', borderRadius: '50%', marginRight: '10px' }} />
                     ) : (
                       <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'var(--accent-color)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px', fontSize: '0.85rem' }}>
                         {username.charAt(0).toUpperCase()}

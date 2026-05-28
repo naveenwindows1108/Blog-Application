@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from "../api/axios";
+import { optimizeCloudinaryUrl } from "../utils/optimizeImage";
 
 interface Post {
   id: number;
@@ -79,7 +80,7 @@ const Profile: React.FC = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setMessage("Profile updated successfully!");
-    } catch (err) {
+    } catch {
       setMessage("Failed to update profile.");
     } finally {
       setSaving(false);
@@ -96,7 +97,7 @@ const Profile: React.FC = () => {
     try {
       await api.delete(`posts/${id}/`);
       setMyPosts(myPosts.filter((post) => post.id !== id));
-    } catch (err) {
+    } catch {
       alert("Failed to delete post.");
     }
   };
@@ -204,7 +205,7 @@ const Profile: React.FC = () => {
             >
               {avatarPreview ? (
                 <img
-                  src={avatarPreview}
+                  src={optimizeCloudinaryUrl(avatarPreview, 160) || ""}
                   alt="Avatar"
                   className="w-100 h-100 object-fit-cover"
                 />
@@ -254,7 +255,7 @@ const Profile: React.FC = () => {
                       style={{ height: "200px", width: "100%" }}
                     >
                       <img
-                        src={postImagePreview}
+                        src={optimizeCloudinaryUrl(postImagePreview, 800) || ""}
                         alt="Cover Preview"
                         className="w-100 h-100 object-fit-cover"
                       />
@@ -410,7 +411,7 @@ const Profile: React.FC = () => {
                         >
                           {post.image ? (
                             <img
-                              src={post.image}
+                              src={optimizeCloudinaryUrl(post.image, 120) || ""}
                               alt={post.title}
                               style={{
                                 width: "60px",

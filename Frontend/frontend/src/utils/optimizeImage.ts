@@ -6,7 +6,7 @@ export const optimizeCloudinaryUrl = (url: string | null, width: number = 1200):
   if (!url) return null;
 
   if (url.includes("res.cloudinary.com")) {
-    if (url.includes("f_auto")) {
+    if (url.includes("f_auto") && url.includes("q_auto")) {
       return url;
     }
 
@@ -26,7 +26,7 @@ export const optimizeHeroImage = (url: string | null): string | null => {
   if (!url) return null;
 
   if (url.includes("res.cloudinary.com")) {
-    if (url.includes("f_auto")) {
+    if (url.includes("f_auto") && url.includes("q_auto")) {
       return url;
     }
     // w_1200,h_675,c_fill: enforces 16:9 aspect ratio, smart crops to subject
@@ -45,7 +45,7 @@ export const optimizeCardImage = (url: string | null): string | null => {
   if (!url) return null;
 
   if (url.includes("res.cloudinary.com")) {
-    if (url.includes("f_auto")) {
+    if (url.includes("f_auto") && url.includes("q_auto")) {
       return url;
     }
     // w_600,h_400,c_fill: enforces 3:2 aspect ratio, smart crops to subject
